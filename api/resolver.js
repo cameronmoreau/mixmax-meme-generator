@@ -1,6 +1,4 @@
 const key = require('../utils/key');
-const request = require('request');
-const _ = require('underscore');
 const memes = require('./memes')
 
 const fs = require('fs')

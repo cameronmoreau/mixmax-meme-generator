@@ -1,14 +1,20 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var app = express();
-var cors = require('cors');
-var path = require('path');
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const cors = require('cors');
+const path = require('path');
+const fs = require('fs')
 
 // Since Mixmax calls this API directly from the client-side, it must be whitelisted.
 var corsOptions = {
   origin: /^[^.\s]+\.mixmax\.com$/,
   credentials: true
 };
+
+// Check if /public/memes directory exists
+if(!fs.existsSync('./public/memes')) {
+  fs.mkdirSync('./public/memes')
+}
 
 app.get('/typeahead', cors(corsOptions), require('./api/typeahead'));
 app.get('/resolver', cors(corsOptions), require('./api/resolver'));
