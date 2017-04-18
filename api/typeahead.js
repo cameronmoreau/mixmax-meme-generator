@@ -7,7 +7,7 @@ module.exports = (req, res) => {
   const termSplit = term.split(' ')
   let results = [{
     title: '<i>(enter [meme] [top text;bottom text])</i>',
-    resolve: true
+    text: term
   }]
 
   // Meme hasnt been selected
@@ -30,7 +30,7 @@ module.exports = (req, res) => {
     else {
       results.push({
         title: `<i>Using meme: ${termSplit[0]}</i>`,
-        resolve: true
+        text: term
       })
     }
   }
