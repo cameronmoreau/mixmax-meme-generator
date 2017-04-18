@@ -4,7 +4,7 @@
   "description": "Giphy slash command for Mixmax",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
