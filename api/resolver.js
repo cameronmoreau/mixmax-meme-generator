@@ -59,7 +59,7 @@ const generateLines = (text) => {
     // Create a new line
     else {
       lines.push(line.trim())
-      line = word.toUpperCase()
+      line = word.toUpperCase() + ' '
     }
   }
 
@@ -77,20 +77,19 @@ const generateMeme = (meme, topText = '', bottomText = '') => {
                     .fontSize(68)
                     .font("Impact.ttf")
 
+    const topLines = generateLines(topText)
+    const bottomLines = generateLines(bottomText)
+
     // Generate top lines
-    generateLines(topText).forEach((item, index) => {
+    topLines.forEach((item, index) => {
       image.drawText(0, 70*index, item, ['North'])
     })
 
     // Generate bottom lines
-    generateLines(bottomText).forEach((item, index) => {
-      image.drawText(0, 70*index, item, ['South'])
+    bottomLines.forEach((item, index) => {
+      image.drawText(0, 70*(bottomLines.length-index-1), item, ['South'])
     })
 
-    // Generate bottom lines
-    
-      // .drawText(0, 0, topText, ['North'])
-      // .drawText(0, 0, bottomText, ['South'])
     image.write(url, err => {
       if(err) reject(err)
       else resolve(url)
