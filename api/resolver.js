@@ -75,7 +75,7 @@ const generateMeme = (meme, topText = '', bottomText = '') => {
     const image = gm(`public/raw_memes/${meme}.jpg`)
                     .fill("#FFF")
                     .fontSize(68)
-                    .font("impact")
+                    .font("Impact.ttf")
 
     // Generate top lines
     generateLines(topText).forEach((item, index) => {
