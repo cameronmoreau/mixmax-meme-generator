@@ -73,6 +73,7 @@ const generateMeme = (meme, topText = '', bottomText = '') => {
   return new Promise((resolve, reject) => {
     const url = `public/memes/${new Date().getTime()}.png`
     const image = gm(`public/raw_memes/${meme}.jpg`)
+                    .resize('600', '600')
                     .fill("#FFF")
                     .fontSize(68)
                     .font("Impact.ttf")
