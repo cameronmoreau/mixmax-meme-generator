@@ -17,7 +17,7 @@ module.exports = (req, res) => {
 
   if(termIsValid(termSplit)) {
     const meme = termSplit[0]
-    const textSplit = termSplit[1].split(';')
+    const textSplit = termSplit.slice(1).join(' ').split(';')
     const topText = textSplit[0]
     const bottomText = textSplit[1]
 
@@ -36,7 +36,7 @@ module.exports = (req, res) => {
 
 const termIsValid = (termSplit) => {
   // Check format
-  if(termSplit.length !== 2) return false
+  if(termSplit.length <= 1) return false
   else {
     const meme = termSplit[0]
     
@@ -46,10 +46,27 @@ const termIsValid = (termSplit) => {
   }
 }
 
-const generateMeme = (meme, topText, bottomText) => {
+const generateLines = (text) => {
+  const MAX_CHARS = 16
+  const words = text.split(' ')
+  const lines = []
+
+  for(const word of words) {
+    console.log(word);
+  }
+}
+
+const generateMeme = (meme, topText = '', bottomText = '') => {
   return new Promise((resolve, reject) => {
-    const url = `../memes/${new Date().getTime()}.png`
-    gm(`../raw_memes/badluck.jpg`)
+    const url = `public/memes/${new Date().getTime()}.png`
+    generateLines(topText)
+    resolve()
+    gm(`public/raw_memes/${meme}.jpg`)
+      .fill("#FFF")
+      .fontSize(68)
+      .font("impact")
+      .drawText(0, 0, topText, ['North'])
+      .drawText(0, 0, bottomText, ['South'])
       .write(url, err => {
         if(err) reject(err)
         else resolve(url)
