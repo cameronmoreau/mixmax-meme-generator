@@ -19,13 +19,12 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   var pem = require('pem');
   var https = require('https');
-  app.listen(process.env.PORT || 9145);
-  // pem.createCertificate({ days: 1, selfSigned: true }, function(err, keys) {
-  //   if (err) throw err;
+  pem.createCertificate({ days: 1, selfSigned: true }, function(err, keys) {
+    if (err) throw err;
 
-  //   https.createServer({
-  //     key: keys.serviceKey,
-  //     cert: keys.certificate
-  //   }, app).listen(process.env.PORT || 9145);
-  // });
+    https.createServer({
+      key: keys.serviceKey,
+      cert: keys.certificate
+    }, app).listen(process.env.PORT || 9145);
+  });
 }

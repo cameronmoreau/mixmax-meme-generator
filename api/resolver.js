@@ -50,26 +50,52 @@ const generateLines = (text) => {
   const MAX_CHARS = 16
   const words = text.split(' ')
   const lines = []
+  let line = ''
 
   for(const word of words) {
-    console.log(word);
+    // Check if current line + space
+    if((line + word + 1).length <= MAX_CHARS) {
+      line += word.toUpperCase() + ' '
+    } 
+    
+    // Create a new line
+    else {
+      lines.push(line.trim())
+      line = word.toUpperCase()
+    }
   }
+
+  // Add overflow
+  if(line.length > 0) lines.push(line)
+  
+  return lines
 }
 
 const generateMeme = (meme, topText = '', bottomText = '') => {
   return new Promise((resolve, reject) => {
     const url = `public/memes/${new Date().getTime()}.png`
-    generateLines(topText)
-    resolve()
-    gm(`public/raw_memes/${meme}.jpg`)
-      .fill("#FFF")
-      .fontSize(68)
-      .font("impact")
-      .drawText(0, 0, topText, ['North'])
-      .drawText(0, 0, bottomText, ['South'])
-      .write(url, err => {
-        if(err) reject(err)
-        else resolve(url)
-      })
+    const image = gm(`public/raw_memes/${meme}.jpg`)
+                    .fill("#FFF")
+                    .fontSize(68)
+                    .font("impact")
+
+    // Generate top lines
+    generateLines(topText).forEach((item, index) => {
+      image.drawText(0, 70*index, item, ['North'])
+    })
+
+    // Generate bottom lines
+    generateLines(bottomText).forEach((item, index) => {
+      image.drawText(0, 70*index, item, ['South'])
+    })
+
+    // Generate bottom lines
+    
+      // .drawText(0, 0, topText, ['North'])
+      // .drawText(0, 0, bottomText, ['South'])
+    image.write(url, err => {
+      if(err) reject(err)
+      else resolve(url)
+    })
   })
 }
