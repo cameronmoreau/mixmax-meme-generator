@@ -21,7 +21,7 @@ module.exports = (req, res) => {
 
     generateMeme(meme, topText, bottomText)
       .then(url => {
-        result.body = `<img src="${url}">`
+        result.body = `<img src="https://mixmax-meme-generator.herokuapp.com/${url}">`
         res.send(result)
       })
       .catch(err => {
