@@ -2,6 +2,8 @@
 
 This was a coding challenge sent to me by Mixmax for an internship. Feel free to produce as many dank memes as you'd like.
 
+![typeahead](https://raw.githubusercontent.com/cameronmoreau/mixmax-meme-generator/master/screenshots/video.gif)
+
 Add these two to make the slash command
 ```
 https://mixmax-meme-generator.herokuapp.com/typeahead
